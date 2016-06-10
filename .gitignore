@@ -1,0 +1,10 @@
+SPL
+bin
+cmsis
+cscope.out
+obj
+readme.txt
+*.depend
+*.ebp
+*.ld
+*.cscope*
