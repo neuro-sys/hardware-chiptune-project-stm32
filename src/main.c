@@ -53,8 +53,8 @@ void initTimerInterrupt(void)
 
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
 
-    TIM_TimeBaseStructure.TIM_Period = 62;
-    TIM_TimeBaseStructure.TIM_Prescaler = 167;
+    TIM_TimeBaseStructure.TIM_Period = 64;
+    TIM_TimeBaseStructure.TIM_Prescaler = 165;
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 
