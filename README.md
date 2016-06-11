@@ -6,3 +6,6 @@ Ported from http://www.linusakesson.net/hardware/chiptune.php
 
 ## CS43L22 Cirrus Logic Audio DAC
 * https://www.cirrus.com/cn/pubs/proDatasheet/CS43L22_F2.pdf
+
+## Video
+[![Youtube Link](http://i.imgur.com/bs9oQQ1.png)](https://www.youtube.com/watch?v=T-Z5Ba3m9l8)
