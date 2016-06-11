@@ -34,8 +34,9 @@ void TIM2_IRQHandler(void)
 {
     if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
     {
-        TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
+
         chiptune_callback();
+        TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
     }
 }
 
@@ -52,9 +53,10 @@ void initTimerInterrupt(void)
     NVIC_Init(&NVIC_InitStruct);
 
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+    RCC_PCLK1Config(RCC_HCLK_Div1); // sysclk prescaler 1
 
-    TIM_TimeBaseStructure.TIM_Period = 64;
-    TIM_TimeBaseStructure.TIM_Prescaler = 165;
+    TIM_TimeBaseStructure.TIM_Period = 110; // 1mhz / 125 == 8khz
+    TIM_TimeBaseStructure.TIM_Prescaler = 167; // 168mhz / 168 == 1mhz
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 
@@ -67,12 +69,12 @@ void initTimerInterrupt(void)
 
 void initAudio(void)
 {
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
 
-	codec_init();
-	codec_ctrl_init();
+    codec_init();
+    codec_ctrl_init();
 
-	I2S_Cmd(CODEC_I2S, ENABLE);
+    I2S_Cmd(CODEC_I2S, ENABLE);
 }
 
 
