@@ -64,6 +64,7 @@ void codec_init()
 
     // configure I2S port
     SPI_I2S_DeInit(CODEC_I2S);
+
     I2S_InitType.I2S_AudioFreq = I2S_AudioFreq_8k;
     I2S_InitType.I2S_MCLKOutput = I2S_MCLKOutput_Enable;
     I2S_InitType.I2S_DataFormat = I2S_DataFormat_16b;
@@ -74,6 +75,7 @@ void codec_init()
     I2S_Init(CODEC_I2S, &I2S_InitType);
     //I2S_Cmd(CODEC_I2S, ENABLE);
 
+    // Configure MCK at 2mhz to PC7
 
     // configure I2C port
     I2C_DeInit(CODEC_I2C);
@@ -136,41 +138,40 @@ void codec_ctrl_init()
     //end of initialization sequence
 
     CodecCommandBuffer[0] = CODEC_MAP_PWR_CTRL2;
-    CodecCommandBuffer[1] = 0xAF;
+    CodecCommandBuffer[1] = 0xAF;   // turn of speaker and headphone channels
     send_codec_ctrl(CodecCommandBuffer, 2);
 
     CodecCommandBuffer[0] = CODEC_MAP_PLAYBACK_CTRL1;
     CodecCommandBuffer[1] = 0x70;
     send_codec_ctrl(CodecCommandBuffer, 2);
 
-
     CodecCommandBuffer[0] = CODEC_MAP_CLK_CTRL;
     CodecCommandBuffer[1] = 0x81; //auto detect clock
     send_codec_ctrl(CodecCommandBuffer, 2);
 
     CodecCommandBuffer[0] = CODEC_MAP_IF_CTRL1;
-    CodecCommandBuffer[1] = 0x07;
+    CodecCommandBuffer[1] = 0x07; // slave i2s data mode
     send_codec_ctrl(CodecCommandBuffer, 2);
 
-    CodecCommandBuffer[0] = 0x0A;
-    CodecCommandBuffer[1] = 0x00;
-    send_codec_ctrl(CodecCommandBuffer, 2);
+//    CodecCommandBuffer[0] = 0x0A;
+//    CodecCommandBuffer[1] = 0x00;
+//    send_codec_ctrl(CodecCommandBuffer, 2);
 
-    CodecCommandBuffer[0] = 0x27;
-    CodecCommandBuffer[1] = 0x00;
-    send_codec_ctrl(CodecCommandBuffer, 2);
+//    CodecCommandBuffer[0] = 0x27;
+//    CodecCommandBuffer[1] = 0x00;
+//    send_codec_ctrl(CodecCommandBuffer, 2);
 
     CodecCommandBuffer[0] = 0x1A | CODEC_MAPBYTE_INC;
     CodecCommandBuffer[1] = 0x0A;
     CodecCommandBuffer[2] = 0x0A;
     send_codec_ctrl(CodecCommandBuffer, 3);
 
-    CodecCommandBuffer[0] = 0x1F;
-    CodecCommandBuffer[1] = 0x0F;
+    CodecCommandBuffer[0] = 0x1F; //treble/bass
+    CodecCommandBuffer[1] = 0x00;
     send_codec_ctrl(CodecCommandBuffer, 2);
 
     CodecCommandBuffer[0] = CODEC_MAP_PWR_CTRL1;
-    CodecCommandBuffer[1] = 0x9E;
+    CodecCommandBuffer[1] = 0x9E; //power on
     send_codec_ctrl(CodecCommandBuffer, 2);
 
 }

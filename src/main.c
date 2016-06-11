@@ -55,7 +55,7 @@ void initTimerInterrupt(void)
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
     RCC_PCLK1Config(RCC_HCLK_Div1); // sysclk prescaler 1
 
-    TIM_TimeBaseStructure.TIM_Period = 110; // 1mhz / 125 == 8khz
+    TIM_TimeBaseStructure.TIM_Period = 61; // 1mhz / 125 == 8khz
     TIM_TimeBaseStructure.TIM_Prescaler = 167; // 168mhz / 168 == 1mhz
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
@@ -81,10 +81,9 @@ void initAudio(void)
 int main()
 {
     SystemInit();
+
     initLEDS();
     initAudio();
-
-    initTimerInterrupt();
 
     mainloop();
 
