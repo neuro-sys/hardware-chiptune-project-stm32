@@ -167,12 +167,18 @@ void codec_ctrl_init()
     send_codec_ctrl(CodecCommandBuffer, 3);
 
     CodecCommandBuffer[0] = 0x1F; //treble/bass
-    CodecCommandBuffer[1] = 0x00;
+    CodecCommandBuffer[1] = 0xFF;
     send_codec_ctrl(CodecCommandBuffer, 2);
 
     CodecCommandBuffer[0] = CODEC_MAP_PWR_CTRL1;
     CodecCommandBuffer[1] = 0x9E; //power on
     send_codec_ctrl(CodecCommandBuffer, 2);
+
+    CodecCommandBuffer[0] = CODEC_MAP_HP_A_VOL;
+    CodecCommandBuffer[1] = 0xe0; // set hp volume
+    send_codec_ctrl(CodecCommandBuffer, 2);
+
+
 
 }
 
